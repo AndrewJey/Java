@@ -1,5 +1,11 @@
 # The Algorithms - Java [![Build Status](https://travis-ci.org/TheAlgorithms/Python.svg)](https://travis-ci.org/TheAlgorithms/Python)
 
+<!-- local-development:start -->
+## Desarrollo local
+
+Consulta [RUNNING.md](RUNNING.md) para ubicar cada componente, abrirlo en su IDE, compilarlo y conocer las comprobaciones realizadas y los requisitos pendientes.
+<!-- local-development:end -->
+
 ### All algorithms implemented in Java (for education)
 
 These are for demonstration purposes only. There are many implementations of sorts in the Java standard library that are much better for performance reasons.
