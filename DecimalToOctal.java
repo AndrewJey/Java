@@ -1,33 +1,32 @@
 import java.util.Scanner;
 
 /**
- * This class converts Decimal numbers to Octal Numbers
- * 
- * @author Unknown
- *
+ * Converts decimal integers to their octal representation safely.
  */
-class Decimal_Octal
-{
-	/**
-	 * Main Method
-	 * 
-	 * @param args Command line Arguments
-	 */
-  public static void main(String[] args)
-  {
-    Scanner sc=new Scanner(System.in);
-    int n,k,d,s=0,c=0;
-    System.out.print("Decimal number: ");
-    n=sc.nextInt();
-    k=n;
-    while(k!=0)
-    {
-      d=k%8;
-      s+=d*(int)Math.pow(10,c++);
-      k/=8;
+public class DecimalToOctal {
+
+    public static String toOctal(int n) {
+        if (n == 0) {
+            return "0";
+        }
+        boolean negative = n < 0;
+        long value = Math.abs((long) n);
+        StringBuilder sb = new StringBuilder();
+        while (value > 0) {
+            sb.append(value % 8);
+            value /= 8;
+        }
+        if (negative) {
+            sb.append('-');
+        }
+        return sb.reverse().toString();
     }
-   
-    System.out.println("Octal equivalent:"+s);
-    sc.close();
-  }
+
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.print("Decimal number: ");
+            int n = sc.nextInt();
+            System.out.println("Octal equivalent: " + toOctal(n));
+        }
+    }
 }

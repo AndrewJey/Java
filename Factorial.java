@@ -1,50 +1,59 @@
 package factorial;
+
+import java.math.BigInteger;
 import java.util.Scanner;
 
 /**
- * This program will print out the factorial of any non-negative
- * number that you input into it.
- * 
- * @author Marcus
- *
+ * Prints out the factorial of any non-negative integer.
  */
-public class Factorial{
+public class Factorial {
 
-	/**
-	 * The main method
-	 * 
-	 * @param args Command line arguments
-	 */
-	public static void main(String[] args){
-	  Scanner input = new Scanner(System.in);
-          System.out.print("Enter a non-negative integer: ");
-          
-       //If user does not enter an Integer, we want program to fail gracefully, letting the user know why it terminated   
-          try{
+    public static void main(String[] args) {
+        try (Scanner input = new Scanner(System.in)) {
+            System.out.print("Enter a non-negative integer: ");
             int number = input.nextInt();
-            
-       //We keep prompting the user until they enter a positive number 
-            while(number < 0){
-              System.out.println("Your input must be non-negative. Please enter a positive number: ");
-              number = input.nextInt();
+            while (number < 0) {
+                System.out.println("Your input must be non-negative. Please enter a positive number: ");
+                number = input.nextInt();
             }
-       //Display the result
- 	   System.out.println("The factorial of " + number + " will yield: " + factorial(number));  
-           
-          }catch(Exception e){
-            System.out.println("Error: You did not enter an integer. Program has terminated.");
-          }
-          input.close();
+            if (number <= 20) {
+                System.out.println("The factorial of " + number + " will yield: " + factorial(number));
+            } else {
+                System.out.println("The factorial of " + number + " will yield: " + factorialBig(number));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: You did not enter a valid integer. Program has terminated.");
         }
-        
-	/**
-	 * Recursive Factorial Method
-	 * 
-	 * @param n The number to factorial
-	 * @return The factorial of the number
-	 */
-	public static long factorial(int n){
-          if(n == 0 || n == 1) return 1;
-          return n * factorial(n - 1);
-	}
+    }
+
+    /**
+     * Computes factorial for n in [0, 20] without silent long overflow.
+     */
+    public static long factorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("n must be non-negative");
+        }
+        if (n > 20) {
+            throw new IllegalArgumentException("n > 20 overflows long; use factorialBig(n)");
+        }
+        long result = 1L;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    /**
+     * Arbitrary-precision factorial for any non-negative integer.
+     */
+    public static BigInteger factorialBig(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("n must be non-negative");
+        }
+        BigInteger result = BigInteger.ONE;
+        for (int i = 2; i <= n; i++) {
+            result = result.multiply(BigInteger.valueOf(i));
+        }
+        return result;
+    }
 }
